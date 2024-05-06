@@ -1,7 +1,7 @@
 project "fmt"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++20"
+	cppdialect "C++latest"
 	staticruntime "off"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
@@ -32,9 +32,33 @@ project "fmt"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
+        runtime "Debug"
+        symbols "On"
 
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
+        defines { "DEBUG" }
+
+        links
+        {
+        }
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "On"
+        symbols "Off"
+
+        defines { "NDEBUG" }
+
+        links
+        {
+        }
+
+    filter "configurations:Dist"
+        runtime "Release"
+        optimize "on"
+        symbols "Off"
+
+        defines { "NDEBUG" }
+
+        links
+        {
+        }
